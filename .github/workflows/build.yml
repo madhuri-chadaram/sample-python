@@ -13,13 +13,6 @@ jobs:
         with:
           fetch-depth: 5
         
-      - name: Run multiple commands
-        run: |
-          pwd
-          ls -l
-          git branch
-          git log
-        
       - name: Get Git Diff
         run: |
           git diff --name-only HEAD~1 HEAD
