@@ -15,6 +15,8 @@ jobs:
         run: |
           pwd
           ls -l
+          git branch
+          git log
         
       - name: Get Git Diff
         run: |
