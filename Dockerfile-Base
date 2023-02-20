@@ -1,11 +1,11 @@
-#from alpine:latest as base image
+#from alpine:latest as base image 
 from python:3.7.3-alpine as base
 
 from base as builder
 
 RUN apk add --no-cache python3 python3-dev py-pip build-base
 
-# create directory to copy files to
+# create directory and switch to install
 RUN mkdir /install/
 WORKDIR /install
 
