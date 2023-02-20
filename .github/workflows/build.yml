@@ -13,6 +13,7 @@ jobs:
         
       - name: Run multiple commands
         run: |
+          cd ..
           pwd
           ls -
         
