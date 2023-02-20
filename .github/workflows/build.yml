@@ -13,9 +13,8 @@ jobs:
         
       - name: Run multiple commands
         run: |
-          cd ..
           pwd
-          ls -
+          ls -l
         
       - name: Get Git Diff
         run: |
