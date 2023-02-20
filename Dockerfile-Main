@@ -1,6 +1,6 @@
 FROM 289349975759.dkr.ecr.us-east-2.amazonaws.com/sample-python_base:latest
 
-copy --from=builder /install /usr/local
+#copy --from=builder /install /usr/local
 RUN mkdir /app/
 
 COPY numpyTest.py /app/numpyTest.py
