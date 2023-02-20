@@ -1,0 +1,13 @@
+FROM base
+
+copy --from=builder /install /usr/local
+RUN mkdir /app/
+
+COPY numpyTest.py /app/numpyTest.py
+
+
+# create a simple python script
+#RUN echo print("Hello World from python from a container!") > c:\hello.py
+
+# establish what command will run when the docker run command is executed
+CMD ["python", "/app/numpyTest.py"]
