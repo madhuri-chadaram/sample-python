@@ -51,7 +51,7 @@ jobs:
           ECR_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_BASE_REPOSITORY
           # Tag the Docker image with the ECR repository URI
           docker tag $ECR_BASE_REPOSITORY:$IMAGE_TAG $ECR_URI:$IMAGE_TAG
-          docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_URI:$IMAGE_TAG          
+          docker push $ECR_URI:$IMAGE_TAG          
 
       - name: Build Main Image
         if: ${{ github.event_name == 'push' && !contains(steps.determine-changes.outputs.files, 'Dockerfile-Base') || !contains(steps.determine-changes.outputs.files, 'requirements.txt') }}
@@ -62,5 +62,5 @@ jobs:
           ECR_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_MAIN_REPOSITORY
           # Tag the Docker image with the ECR repository URI
           docker tag $ECR_MAIN_REPOSITORY:$IMAGE_TAG $ECR_URI:$IMAGE_TAG
-          docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_URI:$IMAGE_TAG   
+          docker push $ECR_URI:$IMAGE_TAG   
 
