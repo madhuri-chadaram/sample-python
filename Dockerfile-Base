@@ -1,4 +1,4 @@
-#from alpine:latest as base image 
+#from alpine:latest as base image for the build
 from python:3.7.3-alpine as base
 
 from base as builder
