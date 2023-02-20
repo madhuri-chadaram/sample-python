@@ -54,7 +54,7 @@ jobs:
           docker push $ECR_URI:$IMAGE_TAG          
 
       - name: Build Main Image
-        if: ${{ github.event_name == 'push' && !contains(steps.determine-changes.outputs.files, 'Dockerfile-Base') || !contains(steps.determine-changes.outputs.files, 'requirements.txt') }}
+        if: ${{ github.event_name == 'push' && !contains(steps.determine-changes.outputs.files, 'Dockerfile-Base') && !contains(steps.determine-changes.outputs.files, 'requirements.txt') }}
         run: | 
           docker build -t $ECR_MAIN_REPOSITORY:$IMAGE_TAG -f ./Dockerfile-Main .
           # Set the AWS account ID and ECR repository URI
