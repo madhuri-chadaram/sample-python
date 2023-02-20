@@ -17,8 +17,8 @@ jobs:
 
       - name: Debug Info
         run: |
-          echo "Event name: ${github.event_name}"
-          echo "Modified files: ${github.event.head_commit.modified}"
+          echo "${github.event_name}"
+          echo "${github.event.head_commit.modified}"
 
 
       - name: Build Main Image
