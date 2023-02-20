@@ -1,0 +1,21 @@
+name: Docker Build
+
+on:
+  push:
+    branches: [ main ]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Build Base Image
+        if: ${{ github.event_name == 'push' && (github.event.inputs.files == 'Dockerfile.Base' || github.event.inputs.files == 'requirements.txt') }}
+        run: docker build -t base:latest -f Dockerfile.Base .
+
+      - name: Build Main Image
+        if: ${{ github.event_name == 'push' && (github.event.inputs.files == 'Dockerfile.Main') }}
+        run: docker build -t main:latest -f Dockerfile.Main .
