@@ -45,7 +45,7 @@ jobs:
       - name: Build Base Image
         if: ${{ github.event_name == 'push' && contains(steps.determine-changes.outputs.files, 'Dockerfile-Base') || contains(steps.determine-changes.outputs.files, 'requirements.txt') }}
         run: | 
-          docker build -t $ECR_BASE_REPOSITORY:$IMAGE -f ./Dockerfile-Base .
+          docker build -t $ECR_BASE_REPOSITORY:$IMAGE_TAG -f ./Dockerfile-Base .
           # Set the AWS account ID and ECR repository URI
           AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
           ECR_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_BASE_REPOSITORY
