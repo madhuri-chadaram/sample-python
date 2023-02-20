@@ -36,6 +36,6 @@ jobs:
         run: docker build -t base:latest -f ./Dockerfile-Base .
 
       - name: Build Main Image
-        if: ${{ github.event_name == 'push' && contains(steps.determine-changes.outputs.files, 'Dockerfile-Main') }}
+        if: ${{ github.event_name == 'push' && !contains(steps.determine-changes.outputs.files, 'Dockerfile-Main') }}
         run: docker build -t main:latest -f ./Dockerfile-Main .
 
