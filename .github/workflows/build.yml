@@ -16,6 +16,11 @@ jobs:
         if: ${{ github.event_name == 'push' && contains(github.event.head_commit.modified, 'Dockerfile-Base') || contains(github.event.head_commit.modified, 'requirements.txt') }}
         run: ls
 
+      - name: Debug Info
+        run: |
+          echo "Event name: ${github.event_name}"
+          echo "Modified files: ${github.event.head_commit.modified}"
+
       - name: Build Main Image
         if: ${{ github.event_name == 'push' && (github.event.inputs.files == 'Dockerfile-Main') }}
         run: docker build -t main:latest -f ./Dockerfile-Main .
