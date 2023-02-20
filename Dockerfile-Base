@@ -5,7 +5,7 @@ from base as builder
 
 RUN apk add --no-cache python3 python3-dev py-pip build-base
 
-# create directory and switch to install
+# create install directory and switch 
 RUN mkdir /install/
 WORKDIR /install
 
