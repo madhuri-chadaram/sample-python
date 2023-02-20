@@ -10,6 +10,11 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+        
+      - name: Get Git Diff
+        run: |
+          git diff --name-only HEAD~1 HEAD
+          echo "Git Diff complete"
 
       - name: Determine Changed Files
         id: determine-changes
