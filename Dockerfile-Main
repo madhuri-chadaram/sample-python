@@ -1,17 +1,12 @@
-FROM 289349975759.dkr.ecr.us-east-2.amazonaws.com/sample-python_base:latest
+FROM python:3.7.3-alpine
 
-#copy --from=builder /install /usr/local
+#copy base image configuration to main 
+copy --from=289349975759.dkr.ecr.us-east-2.amazonaws.com/sample-python_base:latest /usr/local /usr/local
+
 RUN mkdir /app/
 
-#COPY app.py /app/app.py
-
-
-# create a simple python script
-#RUN echo print("Hello World from python from a container!") > c:\hello.py
-
-# establish what command will run when the docker run command is executed
-#CMD ["python", "/app/app.py"]
-
 COPY . ./
+
 EXPOSE 8080
+
 ENTRYPOINT ["python3", "app.py"]
