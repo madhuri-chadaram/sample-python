@@ -14,8 +14,12 @@ jobs:
       - name: Debug Info of event name
         run: echo ${{ github.event_name }}
 
-      - name: Debug Info of commit
-        run: echo ${{ github.event.head_commit.modified }}
+      - name: Debug Info of Event
+        run: |
+          echo "Event: ${{ toJson(github.event) }}"
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "Commit Message: ${{ github.event.head_commit.message }}"
+          echo "Modified Files: ${{ github.event.head_commit.modified }}"
         
       - name: Build Base Image
         if: ${{ github.event_name == 'push' && (contains(github.event.head_commit.modified, 'Dockerfile-Base') || contains(github.event.head_commit.modified, 'requirements.txt')) }}
