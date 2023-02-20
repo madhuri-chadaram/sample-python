@@ -11,21 +11,17 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Debug Info of event name
-        run: echo ${{ github.event_name }}
-
-      - name: Debug Info of Event
+      - name: Determine Changed Files
+        id: determine-changes
         run: |
-          echo "Event: ${{ toJson(github.event) }}"
-          echo "Commit SHA: ${{ github.sha }}"
-          echo "Commit Message: ${{ github.event.head_commit.message }}"
-          echo "Modified Files: ${{ github.event.head_commit.modified }}"
-        
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+          echo "::set-output name=files::$CHANGED_FILES"
+
       - name: Build Base Image
-        if: ${{ github.event_name == 'push' && (contains(github.event.head_commit.modified, 'Dockerfile-Base') || contains(github.event.head_commit.modified, 'requirements.txt')) }}
-        run: ls
+        if: ${{ github.event_name == 'push' && contains(steps.determine-changes.outputs.files, 'Dockerfile-Base') || contains(steps.determine-changes.outputs.files, 'requirements.txt') }}
+        run: docker build -t base:latest -f ./Dockerfile-Base .
 
       - name: Build Main Image
-        if: ${{ github.event_name == 'push' && contains(github.event.head_commit.modified, 'Dockerfile-Main') }}
+        if: ${{ github.event_name == 'push' && contains(steps.determine-changes.outputs.files, 'Dockerfile-Main') }}
         run: docker build -t main:latest -f ./Dockerfile-Main .
 
