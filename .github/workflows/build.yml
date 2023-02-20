@@ -17,9 +17,7 @@ jobs:
         run: ls
 
       - name: Debug Info
-        run: |
-          echo ${github.event_name}
-          echo ${github.event.head_commit.modified}
+        run: echo ${github.event_name}
 
       - name: Build Main Image
         if: ${{ github.event_name == 'push' && (github.event.inputs.files == 'Dockerfile-Main') }}
