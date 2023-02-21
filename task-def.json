@@ -1,0 +1,18 @@
+{
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "family": "sample-python",
+    "containerDefinitions": [
+        {
+            "name": "python",
+            "image": "289349975759.dkr.ecr.us-east-2.amazonaws.com/sample-python_main:latest",
+            "essential": true
+        }
+    ],
+    "volumes": [],
+    "networkMode": "awsvpc",
+    "memory": "3 GB",
+    "cpu": "1 vCPU",
+    "executionRoleArn": "arn:aws:iam::289349975759:role/ecsTaskExecutionRole"
+}
