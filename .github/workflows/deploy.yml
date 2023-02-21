@@ -9,7 +9,7 @@ env:
   ECR_REGISTRY: 289349975759.dkr.ecr.us-east-2.amazonaws.com
   IMAGE_NAME: sample-python_main
   ECS_CLUSTER_NAME: sample-ecs
-  SERVICE_NAME: python-service
+  SERVICE_NAME: my-python
   TASK_DEFINITION_NAME: sample-python
 
 jobs:
