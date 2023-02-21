@@ -6,7 +6,7 @@
     "containerDefinitions": [
         {
             "name": "python",
-            "image": "289349975759.dkr.ecr.us-east-2.amazonaws.com/sample-python_main:latest",
+            "image": "289349975759.dkr.ecr.us-east-2.amazonaws.com/sample-python_main",
             "essential": true
         }
     ],
