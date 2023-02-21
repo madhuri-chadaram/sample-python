@@ -1,0 +1,15 @@
+{
+  "serviceName": "my-python",
+  "taskDefinition": "sample-python",
+  "desiredCount": 1,
+  "launchType": "FARGATE",
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "subnets": ["subnet-0710073e799d8ce73"],
+      "securityGroups": ["sg-04abbab05235c2b71"],
+      "assignPublicIp": "ENABLED"
+    }
+  },
+  "platformVersion": "LATEST",
+  "cluster": "sample-ecs"
+}
