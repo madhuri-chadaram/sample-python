@@ -1,0 +1,27 @@
+name: Deregister ECS Task
+on:
+  workflow_dispatch:
+    inputs:
+      task-revision:
+        description: 'Task revision number'
+        required: true
+        default: '1' # set a default revision number if none is provided
+
+env:
+  TASK_REVISION: ${{ github.event.inputs.task-revision }}
+  TASK_DEFINITION_NAME: sample-python
+
+jobs:
+  deregister-task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deregister ECS Task
+        run: |
+          aws ecs deregister-task-definition --task-definition $TASK_DEFINITION_NAME:${{ env.TASK_REVISION }}
