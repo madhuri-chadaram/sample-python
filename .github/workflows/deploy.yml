@@ -41,8 +41,8 @@ jobs:
         run: |
           service=$(cat service.json)
           service=${service/$TASK_DEFINITION_NAME/$(echo "$TASK_DEFINITION_NAME")}
-          aws ecs update-service --cluster $ECS_CLUSTER_NAME --service $SERVICE_NAME --force-new-deployment
-          aws ecs deploy my-ecs-service $SERVICE_NAME --task-definition $TASK_DEFINITION_NAME
+          LATEST_TASK_DEFINITION_ARN=$(aws ecs list-task-definitions --family sample-python --sort DESC | jq -r '.taskDefinitionArns[0]')
+          aws ecs update-service --cluster $ECS_CLUSTER_NAME --service $SERVICE_NAME --task-definition $LATEST_TASK_DEFINITION_ARN
       - name: Wait for service deployment
         run: |
           aws ecs wait services-stable --cluster $ECS_CLUSTER_NAME --services $SERVICE_NAME
