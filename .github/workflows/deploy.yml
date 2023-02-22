@@ -35,15 +35,14 @@ jobs:
       - name: Create task definition
         id: create_task_definition
         run: |
-          task_def=$(cat task-def.json)
-          task_def=${task_def/$IMAGE_NAME/$(echo "$ECR_REGISTRY/$IMAGE_NAME:latest")}
           aws ecs register-task-definition --cli-input-json file://task-def.json
       - name: Create service
         id: create_service
         run: |
           service=$(cat service.json)
           service=${service/$TASK_DEFINITION_NAME/$(echo "$TASK_DEFINITION_NAME")}
-          aws ecs create-service --cli-input-json file://service.json
+          aws ecs update-service --cluster $ECS_CLUSTER_NAME --service $SERVICE_NAME --force-new-deployment
+          aws ecs deploy my-ecs-service $SERVICE_NAME --task-definition $TASK_DEFINITION_NAME
       - name: Wait for service deployment
         run: |
           aws ecs wait services-stable --cluster $ECS_CLUSTER_NAME --services $SERVICE_NAME
