@@ -1,0 +1,36 @@
+name: Deregister ECS Task Definition
+on:
+  schedule:
+    - cron: '0 */5 * * *' # run every 5 mins
+
+jobs:
+  deregister-task-definition:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      - name: List Task Definitions
+        run: |
+          task_definitions=$(aws ecs list-task-definitions --status ACTIVE)
+          echo "Task definitions: $task_definitions"
+          
+      - name: Deregister Old Task Definitions
+        run: |
+          task_definitions=$(aws ecs list-task-definitions --status ACTIVE)
+          now=$(date +%s)
+          for task_definition_arn in $task_definitions
+          do
+            task_definition=$(aws ecs describe-task-definition --task-definition $task_definition_arn)
+            created_at=$(date -d $(echo $task_definition | jq -r '.taskDefinition.createdAt') +%s)
+            diff=$((now-created_at))
+            if [ $diff -ge 86400 ]
+            then
+              echo "Deregistering task definition $task_definition_arn"
+              aws ecs deregister-task-definition --task-definition $task_definition_arn
+            fi
+          done
