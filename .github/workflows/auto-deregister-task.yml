@@ -1,7 +1,7 @@
 name: Deregister ECS Task Definition
 on:
   schedule:
-    - cron: '0 */5 * * *' # run every 5 mins
+    - cron: '*/5 * * * *' # run every 5 mins
 
 jobs:
   deregister-task-definition:
