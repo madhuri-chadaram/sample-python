@@ -36,11 +36,10 @@ jobs:
         id: create_task_definition
         run: |
           aws ecs register-task-definition --cli-input-json file://task-def.json
-      - name: Create service
-        id: create_service
+      - name: Update service
+        id: update_service
         run: |
-          service=$(cat service.json)
-          service=${service/$TASK_DEFINITION_NAME/$(echo "$TASK_DEFINITION_NAME")}
+          #aws ecs create-service --cli-input-json file://service.json
           LATEST_TASK_DEFINITION_ARN=$(aws ecs list-task-definitions --family sample-python --sort DESC | jq -r '.taskDefinitionArns[0]')
           aws ecs update-service --cluster $ECS_CLUSTER_NAME --service $SERVICE_NAME --task-definition $LATEST_TASK_DEFINITION_ARN
       - name: Wait for service deployment
