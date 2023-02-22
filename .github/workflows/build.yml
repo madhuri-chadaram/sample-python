@@ -29,12 +29,7 @@ jobs:
           
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1          
-        
-      - name: Get Git Diff
-        run: |
-          git diff --name-only HEAD~1 HEAD
-          echo "Git Diff complete"
+        uses: aws-actions/amazon-ecr-login@v1                  
 
       - name: Determine Changed Files
         id: determine-changes
