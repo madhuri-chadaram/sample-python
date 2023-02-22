@@ -1,12 +1,8 @@
 #from alpine:latest as base image for the build
-#test1
+#test12
 from python:3.7.3-alpine as base
 
 RUN apk add --no-cache python3 python3-dev py-pip build-base
-
-# create install directory and switch 
-RUN mkdir /install/
-WORKDIR /install
 
 # copy the requirement.txt file that should have come from git repo
 copy requirements.txt requirements.txt
