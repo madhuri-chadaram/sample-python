@@ -3,7 +3,7 @@ name: Build
 on:
   push:
     branches: [ main ]
-
+    paths-ignore: [ '.github/workflows/**.yml' ]
 
 env:
   AWS_REGION: us-east-2
