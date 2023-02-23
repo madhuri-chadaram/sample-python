@@ -19,7 +19,7 @@ jobs:
       DB_MASTER_USERNAME: myusername
       DB_MASTER_PASSWORD: mypassword
       DB_SUBNET_GROUP_NAME: my-subnet-group
-      DB_SECURITY_GROUP_NAME: my-security-group
+      DB_SECURITY_GROUP_NAME: my-rds-security-group
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
