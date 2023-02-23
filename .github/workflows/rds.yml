@@ -14,7 +14,7 @@ jobs:
       RDS_ACTION: ${{ github.event.inputs.rds-action }}
       AWS_REGION: us-east-2
       DB_INSTANCE_IDENTIFIER: my-rds-instance
-      DB_ENGINE: postgres
+      DB_ENGINE: mysql
       DB_INSTANCE_CLASS: db.t2.micro
       DB_MASTER_USERNAME: myusername
       DB_MASTER_PASSWORD: mypassword
