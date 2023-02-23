@@ -1,7 +1,7 @@
 name: Auto Deregister ECS Task after 24hrs
 on:
   schedule:
-    - cron: '0 * * * *' # run every 5 mins
+    - cron: '0 * * * *' # run every hour
 
 jobs:
   deregister-task-definition:
