@@ -39,12 +39,9 @@ jobs:
               --allocated-storage 20 \
               --no-publicly-accessible
           elif [ $RDS_ACTION == "start" ]; then
-            aws rds start-db-instance \
-              --db-instance-identifier $DB_INSTANCE_IDENTIFIER
+            aws rds start-db-instance --db-instance-identifier $DB_INSTANCE_IDENTIFIER
           elif [ $RDS_ACTION == "stop" ]; then
-            aws rds stop-db-instance \
-              --db-instance-identifier $DB_INSTANCE_IDENTIFIER \
-              --force
+            aws rds stop-db-instance --db-instance-identifier $DB_INSTANCE_IDENTIFIER 
           else
             echo "Invalid action specified"
             exit 1
