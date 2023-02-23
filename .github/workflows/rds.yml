@@ -11,7 +11,7 @@ jobs:
   rds-instance-control:
     runs-on: ubuntu-latest
     env:
-      RDS_ACTION: ${{ github.event.inputs.task-revision }}
+      RDS_ACTION: ${{ github.event.inputs.rds-action }}
       AWS_REGION: us-east-2
       DB_INSTANCE_IDENTIFIER: my-rds-instance
       DB_ENGINE: postgres
