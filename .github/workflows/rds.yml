@@ -1,0 +1,53 @@
+name: RDS Instance Control
+
+on:
+  workflow_dispatch:
+    inputs:
+      rds-action:
+        description: 'create or start or stop'
+        required: true
+        default: 'create/start/stop' 
+jobs:
+  rds-instance-control:
+    runs-on: ubuntu-latest
+    env:
+      RDS_ACTION: ${{ github.event.inputs.task-revision }}
+      AWS_REGION: us-east-2
+      DB_INSTANCE_IDENTIFIER: my-rds-instance
+      DB_ENGINE: postgres
+      DB_INSTANCE_CLASS: db.t2.micro
+      DB_MASTER_USERNAME: myusername
+      DB_MASTER_PASSWORD: mypassword
+      DB_SUBNET_GROUP_NAME: my-subnet-group
+      DB_SECURITY_GROUP_NAME: my-security-group
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Perform Action
+        run: |
+          if [ $RDS_ACTION == "create" ]; then
+            aws rds create-db-instance \
+              --db-instance-identifier $DB_INSTANCE_IDENTIFIER \
+              --db-instance-class $DB_INSTANCE_CLASS \
+              --engine $DB_ENGINE \
+              --master-username $DB_MASTER_USERNAME \
+              --master-user-password $DB_MASTER_PASSWORD \
+              --db-subnet-group-name $DB_SUBNET_GROUP_NAME \
+              --vpc-security-group-ids $DB_SECURITY_GROUP_NAME \
+              --allocated-storage 20 \
+              --no-publicly-accessible
+          elif [ $RDS_ACTION == "start" ]; then
+            aws rds start-db-instance \
+              --db-instance-identifier $DB_INSTANCE_IDENTIFIER
+          elif [ $RDS_ACTION == "stop" ]; then
+            aws rds stop-db-instance \
+              --db-instance-identifier $DB_INSTANCE_IDENTIFIER \
+              --force
+          else
+            echo "Invalid action specified"
+            exit 1
+          fi
