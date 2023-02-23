@@ -19,7 +19,6 @@ jobs:
       DB_MASTER_USERNAME: myusername
       DB_MASTER_PASSWORD: mypassword
       DB_SUBNET_GROUP_NAME: my-subnet-group
-      DB_SECURITY_GROUP_NAME: my-rds-security-group
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -37,7 +36,6 @@ jobs:
               --master-username $DB_MASTER_USERNAME \
               --master-user-password $DB_MASTER_PASSWORD \
               --db-subnet-group-name $DB_SUBNET_GROUP_NAME \
-              --vpc-security-group-ids $DB_SECURITY_GROUP_NAME \
               --allocated-storage 20 \
               --no-publicly-accessible
           elif [ $RDS_ACTION == "start" ]; then
