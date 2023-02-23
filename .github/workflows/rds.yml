@@ -28,7 +28,8 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       - name: Perform Action
         run: |
-          if [ $RDS_ACTION == "create" ]; then
+          echo $RDS_ACTION
+          if [ $RDS_ACTION = "create" ]; then
             aws rds create-db-instance \
               --db-instance-identifier $DB_INSTANCE_IDENTIFIER \
               --db-instance-class $DB_INSTANCE_CLASS \
@@ -38,9 +39,9 @@ jobs:
               --db-subnet-group-name $DB_SUBNET_GROUP_NAME \
               --allocated-storage 20 \
               --no-publicly-accessible
-          elif [ $RDS_ACTION == "start" ]; then
+          elif [ $RDS_ACTION = "start" ]; then
             aws rds start-db-instance --db-instance-identifier $DB_INSTANCE_IDENTIFIER
-          elif [ $RDS_ACTION == "stop" ]; then
+          elif [ $RDS_ACTION = "stop" ]; then
             aws rds stop-db-instance --db-instance-identifier $DB_INSTANCE_IDENTIFIER 
           else
             echo "Invalid action specified"
