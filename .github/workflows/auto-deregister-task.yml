@@ -19,7 +19,7 @@ jobs:
           task_definitions=$(aws ecs list-task-definitions --status ACTIVE)
           echo "Task definitions: $task_definitions"
           
-      - name: Deregister Old Task Definitions
+      - name: Deregister Task Definitions
         run: |
           task_definitions=$(aws ecs list-task-definitions --status ACTIVE)
           now=$(date +%s)
